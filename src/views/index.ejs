@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<% include header-home.ejs %>
+<script>
+var scope_arr = ['public_profile','user_friends', 'publish_actions'];
+function statusChangeCallback(loginResponse){
+
+	if (loginResponse.status === 'connected'){
+		FB.api('/me/permissions/', function(response){
+			var allPermissions = true;;
+			for (var i=0; i<response.data.length; i++){
+				if(response.data[i].status === 'declined'){
+					allPermissions = false;
+				}
+			}
+			if(!allPermissions){
+				$.post('/fblogin',{
+					fb_token: loginResponse.authResponse.accessToken
+				}, function(success){
+					window.location.replace('/home');
+				});
+			}
+		});
+	}
+}
+$(document).ready(function(){
+	$('#fbloginbutton').click(function(){
+		FB.login(function(response){
+			if(response.status === 'connected'){
+				$.post('/fblogin',{fb_token: response.authResponse.accessToken}, function(success){
+					window.location.replace('/login?redirect_url=<%=redirect_url%>');
+				});
+
+			}
+		},{scope: scope_arr.join()});
+	});
+});
+</script>
+
+<!-- <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+				<i class="fa fa-bars"></i>
+			</button>
+			<a class="navbar-brand page-scroll" href="#page-top">
+				<i class="fa fa-play-circle"></i>  <span class="light">Start</span> Bootstrap
+			</a>
+		</div>
+
+		
+		<div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+			<ul class="nav navbar-nav">
+				
+				<li class="hidden">
+					<a href="#page-top"></a>
+				</li>
+				<li>
+					<a class="page-scroll" href="#about">About</a>
+				</li>
+				<li>
+					<a class="page-scroll" href="#download">Download</a>
+				</li>
+				<li>
+					<a class="page-scroll" href="#contact">Contact</a>
+				</li>
+			</ul>
+		</div>
+		
+	</div>
+	
+</nav> -->
+
+<header class="intro">
+	<div class="intro-body">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2">
+					<div class="wrap">
+						<div class="heading">
+							<h1>FVLE</h1>
+							<h2>NUS is better with friends!</h2>
+						</div>
+						<div class="avatar">
+							<img src="/images/logo.jpg">
+						</div>
+						<button type="button" id="fbloginbutton">Sign in with Facebook</button>
+
+						<div class="heading">
+							<!-- <a href="#about" class="btn btn-circle page-scroll">
+						<i class="fa fa-angle-double-down animated"></i> -->
+					
+						</div>
+					</div>
+
+					
+					<a class="page-scroll" id="round-btn" href="#about">⇊</a>
+
+				
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+</header>
+
+<section id="about" class="container content-section text-center">
+	<div class="row">
+		
+			<h2>About FVLE</h2>
+<div class="col-lg-4">
+			<b>What is this about?</b>
+			<p>We believe that by sharing NUS module information to your friends, you can enhance both yours and their learning. If you agree, give it a try!</p>
+</div>
+<div class="col-lg-4">
+			<b>What information is shared?</b>
+			<p>This app will share your module history and your current timetable according to IVLE to Facebook friends who are also using FVLE.</p>
+</div>
+<div class="col-lg-4">
+			<b>Who can see my information?</b>
+			<p>Facebook friends of yours who are FVLE users. We do not allow finer control of privacy as of now, so if you wouldn't want Facebook friends to access this, please don't use it.</p>
+		</div>
+	</div>
+			<div class="row">
+
+				<h2>Features</h2>
+        <div class="col-lg-4">
+          <img class="img-circle" src="../images/ivle.jpg" style="width: 140px; height: 140px;">
+          <h2>IVLE integration</h2>
+          <p>FVLE is able to import your module history from IVLE, and you only need to log in once!</p>
+          
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <img class="img-circle" src="../images/fblogo.jpg" style="width: 140px; height: 140px;">
+          <h2>Facebook integration</h2>
+          <p>Use your facebook account to log in, you could see your friends module in this semester, as well as in every previous semester! </p>
+          
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <img class="img-circle" src="../images/qa.jpg" style="width: 140px; height: 140px;">
+          <h2>Module diary</h2>
+          <p>Record your own feeling and experience about this module!</p>
+          
+        </div><!-- /.col-lg-4 -->
+      </div><!-- /.row -->
+      
+
+
+
+
+      <div class="row">
+        <div class="col-lg-4">
+          <img class="img-circle" src="../images/book.jpg" style="width: 140px; height: 140px;">
+          <h2>Sell Textbook</h2>
+          <p>Sell your unused textbook here!</p>
+          
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <img class="img-circle" src="../images/nus.jpg" style="width: 140px; height: 140px;">
+          <h2>View timetable</h2>
+          <p>Your could view your friends module timetable for the current semester with one click, which links to nusmods.com</p>
+          
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+          <img class="img-circle" src="../images/pdf.jpg" style="width: 140px; height: 140px;">
+          <h2>Share notes</h2>
+          <p>Tell others if you still have the softcopy lecture notes and tutorial, or ask your friends for them!</p>
+          
+        </div><!-- /.col-lg-4 -->
+      </div><!-- /.row -->
+
+
+		</div>
+	</div>
+
+	
+</section>
+
+<footer>
+        <div class="container text-center">
+            <p>CS3216 Assignment 1 Group 1</p>
+        </div>
+    </footer>
+
+    <script src="../js/jquery-1.11.0.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="../js/jquery.easing.min.js"></script>
+
+    <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../js/grayscale.js"></script>
+
+
+
+<% include footer.ejs %>
+</html>

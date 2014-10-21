@@ -1,0 +1,111 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'node-express-twitter-bootstrap' ]
+2 info using npm@1.4.21
+3 info using node@v0.10.30
+4 verbose readDependencies using package.json deps
+5 verbose cache add [ 'node-express-twitter-bootstrap', null ]
+6 verbose cache add name=undefined spec="node-express-twitter-bootstrap" args=["node-express-twitter-bootstrap",null]
+7 verbose parsed url { protocol: null,
+7 verbose parsed url   slashes: null,
+7 verbose parsed url   auth: null,
+7 verbose parsed url   host: null,
+7 verbose parsed url   port: null,
+7 verbose parsed url   hostname: null,
+7 verbose parsed url   hash: null,
+7 verbose parsed url   search: null,
+7 verbose parsed url   query: null,
+7 verbose parsed url   pathname: 'node-express-twitter-bootstrap',
+7 verbose parsed url   path: 'node-express-twitter-bootstrap',
+7 verbose parsed url   href: 'node-express-twitter-bootstrap' }
+8 silly lockFile 3fe12c5e-node-express-twitter-bootstrap node-express-twitter-bootstrap
+9 verbose lock node-express-twitter-bootstrap /Users/weiwenbo/.npm/3fe12c5e-node-express-twitter-bootstrap.lock
+10 silly lockFile 3fe12c5e-node-express-twitter-bootstrap node-express-twitter-bootstrap
+11 silly lockFile 3fe12c5e-node-express-twitter-bootstrap node-express-twitter-bootstrap
+12 verbose addNamed [ 'node-express-twitter-bootstrap', '' ]
+13 verbose addNamed [ null, '*' ]
+14 silly lockFile f431e9df-node-express-twitter-bootstrap node-express-twitter-bootstrap@
+15 verbose lock node-express-twitter-bootstrap@ /Users/weiwenbo/.npm/f431e9df-node-express-twitter-bootstrap.lock
+16 silly addNameRange { name: 'node-express-twitter-bootstrap',
+16 silly addNameRange   range: '*',
+16 silly addNameRange   hasData: false }
+17 verbose request where is /node-express-twitter-bootstrap
+18 verbose request registry https://registry.npmjs.org/
+19 verbose request id 2828a93b1575953d
+20 verbose url raw /node-express-twitter-bootstrap
+21 verbose url resolving [ 'https://registry.npmjs.org/',
+21 verbose url resolving   './node-express-twitter-bootstrap' ]
+22 verbose url resolved https://registry.npmjs.org/node-express-twitter-bootstrap
+23 verbose request where is https://registry.npmjs.org/node-express-twitter-bootstrap
+24 info trying registry request attempt 1 at 15:57:45
+25 http GET https://registry.npmjs.org/node-express-twitter-bootstrap
+26 http 200 https://registry.npmjs.org/node-express-twitter-bootstrap
+27 silly registry.get cb [ 200,
+27 silly registry.get   { date: 'Mon, 01 Sep 2014 07:57:45 GMT',
+27 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+27 silly registry.get     etag: '"9NU6HQ28IBT5MFURCSUUX23CG"',
+27 silly registry.get     'content-type': 'application/json',
+27 silly registry.get     'cache-control': 'max-age=60',
+27 silly registry.get     'content-length': '1888',
+27 silly registry.get     'accept-ranges': 'bytes',
+27 silly registry.get     via: '1.1 varnish',
+27 silly registry.get     age: '0',
+27 silly registry.get     'x-served-by': 'cache-sn89-SIN',
+27 silly registry.get     'x-cache': 'MISS',
+27 silly registry.get     'x-cache-hits': '0',
+27 silly registry.get     'x-timer': 'S1409558265.314106,VS0,VE256',
+27 silly registry.get     vary: 'Accept',
+27 silly registry.get     'keep-alive': 'timeout=10, max=50',
+27 silly registry.get     connection: 'Keep-Alive' } ]
+28 silly addNameRange number 2 { name: 'node-express-twitter-bootstrap',
+28 silly addNameRange   range: '*',
+28 silly addNameRange   hasData: true }
+29 silly addNameRange versions [ 'node-express-twitter-bootstrap', [ '0.0.1' ] ]
+30 verbose addNamed [ 'node-express-twitter-bootstrap', '0.0.1' ]
+31 verbose addNamed [ '0.0.1', '0.0.1' ]
+32 silly lockFile a6221c95--express-twitter-bootstrap-0-0-1 node-express-twitter-bootstrap@0.0.1
+33 verbose lock node-express-twitter-bootstrap@0.0.1 /Users/weiwenbo/.npm/a6221c95--express-twitter-bootstrap-0-0-1.lock
+34 silly lockFile 31bf2c47-ress-twitter-bootstrap-0-0-1-tgz https://registry.npmjs.org/node-express-twitter-bootstrap/-/node-express-twitter-bootstrap-0.0.1.tgz
+35 verbose lock https://registry.npmjs.org/node-express-twitter-bootstrap/-/node-express-twitter-bootstrap-0.0.1.tgz /Users/weiwenbo/.npm/31bf2c47-ress-twitter-bootstrap-0-0-1-tgz.lock
+36 verbose addRemoteTarball [ 'https://registry.npmjs.org/node-express-twitter-bootstrap/-/node-express-twitter-bootstrap-0.0.1.tgz',
+36 verbose addRemoteTarball   '582459bdf4d7727f83079cc74a7aad1516dbac8c' ]
+37 info retry fetch attempt 1 at 15:57:46
+38 verbose fetch to= /tmp/npm-5143-R3jJLofD/registry.npmjs.org/node-express-twitter-bootstrap/-/node-express-twitter-bootstrap-0.0.1.tgz
+39 http GET https://registry.npmjs.org/node-express-twitter-bootstrap/-/node-express-twitter-bootstrap-0.0.1.tgz
+40 http 503 https://registry.npmjs.org/node-express-twitter-bootstrap/-/node-express-twitter-bootstrap-0.0.1.tgz
+41 error fetch failed https://registry.npmjs.org/node-express-twitter-bootstrap/-/node-express-twitter-bootstrap-0.0.1.tgz
+42 info retry will retry, error on last attempt: Error: 503 Service Unavailable
+43 info retry fetch attempt 2 at 15:58:57
+44 verbose fetch to= /tmp/npm-5143-R3jJLofD/registry.npmjs.org/node-express-twitter-bootstrap/-/node-express-twitter-bootstrap-0.0.1.tgz
+45 http GET https://registry.npmjs.org/node-express-twitter-bootstrap/-/node-express-twitter-bootstrap-0.0.1.tgz
+46 http 503 https://registry.npmjs.org/node-express-twitter-bootstrap/-/node-express-twitter-bootstrap-0.0.1.tgz
+47 error fetch failed https://registry.npmjs.org/node-express-twitter-bootstrap/-/node-express-twitter-bootstrap-0.0.1.tgz
+48 info retry will retry, error on last attempt: Error: 503 Service Unavailable
+49 info retry fetch attempt 3 at 16:00:57
+50 verbose fetch to= /tmp/npm-5143-R3jJLofD/registry.npmjs.org/node-express-twitter-bootstrap/-/node-express-twitter-bootstrap-0.0.1.tgz
+51 http GET https://registry.npmjs.org/node-express-twitter-bootstrap/-/node-express-twitter-bootstrap-0.0.1.tgz
+52 http 502 https://registry.npmjs.org/node-express-twitter-bootstrap/-/node-express-twitter-bootstrap-0.0.1.tgz
+53 error fetch failed https://registry.npmjs.org/node-express-twitter-bootstrap/-/node-express-twitter-bootstrap-0.0.1.tgz
+54 silly lockFile 31bf2c47-ress-twitter-bootstrap-0-0-1-tgz https://registry.npmjs.org/node-express-twitter-bootstrap/-/node-express-twitter-bootstrap-0.0.1.tgz
+55 silly lockFile 31bf2c47-ress-twitter-bootstrap-0-0-1-tgz https://registry.npmjs.org/node-express-twitter-bootstrap/-/node-express-twitter-bootstrap-0.0.1.tgz
+56 silly lockFile a6221c95--express-twitter-bootstrap-0-0-1 node-express-twitter-bootstrap@0.0.1
+57 silly lockFile a6221c95--express-twitter-bootstrap-0-0-1 node-express-twitter-bootstrap@0.0.1
+58 silly lockFile f431e9df-node-express-twitter-bootstrap node-express-twitter-bootstrap@
+59 silly lockFile f431e9df-node-express-twitter-bootstrap node-express-twitter-bootstrap@
+60 error Error: 502 Bad Gateway
+60 error     at WriteStream.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/fetch.js:58:12)
+60 error     at WriteStream.emit (events.js:117:20)
+60 error     at evalmachine.<anonymous>:1603:14
+60 error     at /usr/local/lib/node_modules/npm/node_modules/graceful-fs/graceful-fs.js:102:5
+60 error     at Object.oncomplete (evalmachine.<anonymous>:107:15)
+61 error If you need help, you may report this *entire* log,
+61 error including the npm and node versions, at:
+61 error     <http://github.com/npm/npm/issues>
+62 error System Darwin 13.3.0
+63 error command "node" "/usr/local/bin/npm" "install" "node-express-twitter-bootstrap"
+64 error cwd /Users/weiwenbo/Desktop/2014-assg1-group01/tnd
+65 error node -v v0.10.30
+66 error npm -v 1.4.21
+67 verbose exit [ 1, true ]

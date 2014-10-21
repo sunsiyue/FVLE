@@ -1,0 +1,28 @@
+{
+	"name": "cs3216-fb",
+	"description": "cs3216 assignment app",
+	"version": "0.0.1",
+	"private": true,
+	"dependencies": {
+		"express": "4.x",
+		"ejs": "1.x",
+		"request": "2.x",
+		"mysql": "2.x",
+		"body-parser": "1.x",
+		"express-session": "1.x",
+		"cookie-parser": "1.x",
+		"serve-static": "1.x",
+		"serve-favicon": "2.x"
+	},
+	"main": "app.js",
+	"devDependencies": {},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://JishnuM@bitbucket.org/cs3216/2014-assg1-group01.git"
+	},
+	"author": "",
+	"license": "BSD-2-Clause"
+}

@@ -1,0 +1,35 @@
+.icon-row .fa {
+	width: 10%;
+	cursor: pointer;
+}
+
+.icon-row .fa {
+	visibility: hidden;
+}
+
+.module:hover .icon-row .fa{
+	visibility: visible;
+}
+
+.fa:hover{
+	color: #E27689;
+};
+
+#timetable {
+	display: none;
+}
+
+#timetable a h2{
+	border-bottom: none;
+	text-decoration: none;
+}
+
+#timetable a h2:hover{
+	color: #E27689;
+	border-bottom: none;
+	text-decoration: none;
+}
+
+.hide {
+	visibility: hidden;
+}

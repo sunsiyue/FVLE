@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<% include header-home.ejs %>
+	<script>
+	function statusChangeCallback(response) {
+		if (response.status === 'connected') {
+			//
+		} else if (response.status === 'not_authorized') {
+			window.location.replace('/');
+		} else {
+			window.location.replace('/');
+		}
+	}
+	</script>
+	<div class="wrap">
+		<div class="heading">
+			<h1>FVLE</h1>
+			<h2>Get Your IVLE Data</h2>
+		</div>
+		<div class="avatar">
+			<img src="/images/logo.jpg">
+		</div>
+		<button id="ivlebutton" type="button" onclick="location.href='/ivlelogin'">Import Data From IVLE</button>
+		<div class="heading">
+			<h3>This is a one time step to import your data. Your current timetable and module history will only be shared to Facebook friends using this app.</h3>
+		</div>
+	</div>
+	<div class="wrap">
+
+	</div>
+<% include footer.ejs %>
+</html>

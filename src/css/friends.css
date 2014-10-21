@@ -1,0 +1,33 @@
+
+.friend-node {
+	padding-left: 2%;
+	padding-right: 2%;
+	padding-top: 2%;
+	padding-bottom: 2%;
+    color: #E8E479;
+    width: 200px;
+    height: 200px;
+}
+
+/*make the <a> fill the whole div*/
+a.fill-div {
+    display: block;
+    height: 100%;
+    width: 100%;
+    text-decoration: none;
+}
+
+.profile-pic {
+	height: 60%;
+	width: 90%;
+	padding-top: 5%;
+}
+#headimg {
+	border-radius: 5px;
+
+}
+
+#container-main {
+	padding-top: 50px;
+}
+

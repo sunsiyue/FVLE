@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<% include header.ejs %>
+	<script>
+	function queryAPI() {
+		var fb_id = <%-fb_id%>;		
+		//document.getElementById('fb-id').innerHTML = fb_id;
+		document.getElementById('facebook-info').href = "https://www.facebook.com/" + fb_id;
+		FB.api('/' + fb_id, function(response) {
+			console.log(response.name);
+			document.getElementById('title').innerHTML = response.name;
+		});
+		FB.api('/' + fb_id + '/picture?redirect=0&height=48&type=normal&width=48', function(response) {
+			document.getElementById('avatarpic').src = response.data.url;
+		});
+	};
+	</script>
+	<div id="header" class="skel-layers-fixed">
+		<div class="top">
+			<!-- Logo -->
+			<a id="facebook-info" href="">
+				<div id="logo">
+					<span class="image avatar48"><img id="avatarpic" src="/images/avatar.jpg" alt="" /></span>
+					<h1 id="title"></h1>
+				</div>
+			</a>
+			<!-- Nav -->
+			<nav id="nav">
+
+				<ul>
+					<li><a href="" id="fb-link"><span class="icon fa-facebook-square">Promote FVLE 
+						<div class="fb-like" data-href="http://fvle.jishnumohan.com" data-layout="button" data-action="like" data-show-faces="false" data-share="true" data-colorscheme="dark"></div>
+					</span></a></li>
+					<li><a href="/home" id="home-link" class="skel-layers-activeWrapper skel-layers"><span class="icon fa-home">Home</span></a></li>
+					<li><a href="#top" id="top-link"><span class="icon fa-user">Profile</span></a></li>
+					<li><a href="" id="logout-link"><span class="icon fa-sign-out">Logout</span></a></li>
+				</ul>
+			</nav>
+
+		</div>
+
+		<div class="bottom">
+			
+		</div>
+
+	</div>
+
+	<!-- Main -->
+	<div id="main">
+
+		<!-- Intro -->
+		<section id="top" class="one dark cover">
+			<div class="container">
+				<header>
+					<h2 class="alt">No IVLE Import</h2>	
+				</header>
+			</div>
+		</section>
+		<section id="text" class="two">
+			<div class="container">
+				<header>
+					<h2>This user has not imported modules from IVLE yet</h2>
+				</header>
+			</div>
+		</section>
+	</div>
+	<div id="footer">A CS3216 Project</div>
+<% include footer.ejs %>
+</html>

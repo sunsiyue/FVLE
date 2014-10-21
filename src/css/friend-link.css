@@ -1,0 +1,63 @@
+#friends-table a {
+	text-align: center;
+	text-decoration: none;
+	border-bottom: none;
+}
+
+article {
+	border-radius: 15px;
+}
+
+.module:hover {
+	background-color: #B6D3E5;
+}
+
+.module {
+	transition: background-color 0.35s ease-in-out;
+}
+
+article a{
+	text-decoration: none;
+	border-bottom: none;
+}
+
+.modal-link{
+	cursor: pointer;
+}
+
+.modal-link:hover{
+	color: #E27689;
+}
+
+.friend-link {
+	vertical-align: 0%;
+	padding-left: 10px;
+	text-align: center;
+	text-decoration: none;
+	border-bottom: none;
+	font-size: 1.2em;
+}
+
+.friend-entry {
+	margin-top:20px;
+	margin-down:20px;
+	text-align: left;
+	border-radius: 10px;
+	transition: background-color 0.25s ease-in-out;
+}
+
+.friend-entry:hover {
+	background-color: #B6D3E5;	
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+.friend-taken-mod {	
+	vertical-align: -40%;
+	text-align: center;
+	text-decoration: none;
+	border-bottom: none;
+	font-size: 1.2em;
+}

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<% include header.ejs %>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="/js/jquery.bpopup.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+	<script>
+	function queryAPI() {
+		var fb_id = "<%-fb_id%>";		
+		console.log(<%-fb_id%>);
+		//document.getElementById('fb-id').innerHTML = fb_id;
+		document.getElementById('facebook-info').href = "https://www.facebook.com/" + fb_id;
+		document.getElementById('facebook-info').target = "_blank";
+		FB.api('/' + fb_id, function(response) {
+			document.getElementById('title').innerHTML = response.name;
+		});
+		FB.api('/' + fb_id + '/picture?redirect=0&height=48&type=normal&width=48', function(response) {
+			document.getElementById('avatarpic').src = response.data.url;
+		});
+		
+	};
+
+	$(document).ready(function(){
+
+		$.get('/api/timetable/<%-fb_id%>', function(data){
+			if (data.status === 'success'){
+				$('#timetable a').attr('href',data.link);
+				$('#timetable').removeClass('hide');
+			}
+		})
+
+		$('.module i').click(function(){
+			var module_code = $(this).closest('article').attr('id');
+			var detail_type = $(this).attr('detail-type');
+			var modal_id = '#' + detail_type + 'Modal';
+			var endpoint = $(modal_id).attr('endpoint');
+
+			$.get(endpoint + module_code,
+				function(data){
+					var to_write = '';
+					if(data.status === 'unauthorized'){
+						to_write = 'You cannot view this';
+					} else if (data.status === 'empty'){
+						// to_write = 'No entry yet.';
+						if (<%-is_self%>) {
+							to_write = '';
+						}else{
+							to_write = 'No entry yet.';
+						}
+					} else if (data.status === 'exists'){
+						to_write = data.text;
+					}
+
+					$(modal_id + ' .content-text').val(to_write);
+					$(modal_id).attr('module_code',module_code);
+					$(modal_id).appendTo('body').modal('show');
+				});
+			
+		});
+
+		$('.modal .edit-button').click(function(){
+			var button = this;
+			var modal_id = '#' + $(button).closest('.modal').attr('id');
+			if($(button).attr('mode')==='edit'){
+				$(button).attr('mode','submit');
+				$(button).text('Submit');
+				$(button).removeClass('btn-primary');
+				$(button).addClass('btn-success');
+				$(modal_id + ' .content-text').prop('readonly',false);
+
+				// $(modal_id + ' .content-text').addClass('editing');
+				$(modal_id + ' .content-text').focus();
+			} else if ($(button).attr('mode')==='submit'){
+				var module_code = $(modal_id).attr('module_code');
+				$(modal_id).modal('hide');
+				$('#confirmModal').data('modal_id',modal_id);
+				$('#confirmModal').data('type','update');
+				$('#confirmModal #confirm-header').html("You are going to save changes for " + module_code);
+				$('#confirmModal').appendTo('body').modal('show');
+			}
+		});
+
+		$('.modal .delete-button').click(function(){
+			var modal_id = '#' + $(this).closest('.modal').attr('id');
+			var module_code = $(modal_id).attr('module_code');
+
+			$(modal_id).modal('hide');
+			$('#confirmModal').data('modal_id',modal_id);
+			$('#confirmModal').data('type','delete');
+			$('#confirmModal #confirm-header').html("You are going to delete for " + module_code);
+			$('#confirmModal').appendTo('body').modal('show');
+		})
+
+		$('.modal').on('hidden.bs.modal',function(){
+			var button = $('.edit-button',this);
+			if(button){
+				var modal_id = '#' + $(this).attr('id');
+				$(button).attr('mode','edit');
+				$(button).addClass('btn-primary');
+				$(button).removeClass('btn-success');
+				$(button).text('Edit');
+				$(modal_id + ' .content-text').attr({'readonly':''});
+				// var id = ;
+				// document.getElementById('ch')
+				$(modal_id).removeClass('editing');
+			}
+		})
+
+		$('.modal .confirm-button').click(function(){
+			// var modal_id = '#' + $(this).closest('.modal').attr('id');
+			var modal_id = $('#confirmModal').data('modal_id');
+			var type = $('#confirmModal').data('type');
+
+			var module_code = $(modal_id).attr('module_code');
+			var text = $(modal_id + ' .content-text').val();
+			var endpoint = $(modal_id).attr('endpoint');
+			var post_data = {
+				type: type,
+				text: text
+			}
+
+			$.post(endpoint + module_code,
+				post_data,
+				function(data){
+					$('#confirmModal').modal('hide');
+				}
+			);
+		});
+	});
+	</script>
+
+
+	
+	<!-- Header -->
+	<div id="header" class="skel-layers-fixed">
+		<div class="top">
+			<!-- Logo -->
+			
+			<div id="logo">
+				<span class="image avatar48"><img id="avatarpic" src="/images/avatar.jpg" alt="" /></span>
+				<a id="facebook-info" href=""><h1 id="title"></h1></a>
+			</div>
+			
+			<!-- Nav -->
+			<nav id="nav">
+
+				<ul>
+
+					<li><a href="" id="fb-link"><span class="icon fa-facebook-square">Promote FVLE 
+						<div class="fb-like" data-href="http://fvle.jishnumohan.com" data-layout="button" data-action="like" data-show-faces="false" data-share="true" data-colorscheme="dark"></div>
+					</span></a></li>
+					
+					<li><a href="/home" id="home-link"><span class="icon fa-home">Home</span></a></li>
+					<li><a href="#top" id="top-link" class="skel-layers-ignoreHref"><span class="icon fa-user">Profile</span></a></li>
+
+					<% var count_copy = sem_count; %>
+					<% for (sem in value) { %>
+						<li><a href="#<%=count_copy%>"id= "<%=count_copy%>-link" class="skel-layers-ignoreHref">
+							<span class="icon fa-th"><%= sem %></span>
+						</a></li>
+					<% count_copy--; %>
+					<% } %>
+					
+					<li><a href="" id="logout-link"><span class="icon fa-sign-out">Logout</span></a></li>
+
+
+				</ul>
+			</nav>
+
+		</div>
+
+		<div class="bottom">
+			
+		</div>
+
+	</div>
+
+	<!-- Modals -->
+	<div class="modal fade" id="utilityModal">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		  </div>
+		  <div class="modal-body">
+			<p></p>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+
+	<div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="reviewModalLabel" aria-hidden="true" endpoint="/api/review/<%-fb_id%>/">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<h4 class="modal-title" id="reviewModalLabel">Module Diary</h4>
+				</div>
+				<div class="modal-body">
+					<textarea class="content-text" id="review-content-text" style="overflow:auto;resize:none;width:100%;height:100%;" placeholder="Enter your review" readonly></textarea>
+				</div>
+				<div class="modal-footer">
+					<%if(is_self) {%>
+						<button type="button" mode="edit" class="btn btn-primary edit-button">Edit</button>
+						<button type="button" class="btn btn-danger delete-button">Delete</button>
+					<%}%>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="modal fade" id="textbookModal" tabindex="-1" role="dialog" aria-labelledby="textbookModalLabel" aria-hidden="true" endpoint="/api/textbook/<%-fb_id%>/">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<h4 class="modal-title" id="textbookModalLabel" mode="edit">Textbook for Sale / Lending</h4>
+				</div>
+				<div class="modal-body">
+					<textarea class="content-text" id="textbook-content-text" style="overflow:auto;resize:none;width:100%;height:100%;" placeholder="Enter your textbook url" readonly></textarea>
+
+				</div>
+				<div class="modal-footer">
+					<%if(is_self) {%>
+						<button type="button" mode="edit" class="btn btn-primary edit-button">Edit</button>
+						<button type="button" class="btn btn-danger delete-button">Delete</button>
+					<%}%>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="modal fade" id="notesModal" tabindex="-1" role="dialog" aria-labelledby="notesModalLabel" aria-hidden="true" endpoint="/api/notes_url/<%-fb_id%>/" >
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<h4 class="modal-title" id="notesModalLabel">Notes / Resources URL</h4>
+				</div>
+				<div class="modal-body">
+					<textarea class="content-text" id="notes-content-text" style="overflow:auto;resize:none;width:100%;height:100%;" placeholder="Enter your notes url" readonly></textarea>
+
+				</div>
+				<div class="modal-footer">
+					<%if(is_self) {%>
+						<button type="button" mode="edit" class="btn btn-primary edit-button">Edit</button>
+						<button type="button" class="btn btn-danger delete-button">Delete</button>
+					<%}%>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="confirmModal" class="modal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<p id='confirm-header'></p>
+					<p>Do you want to proceed?</p>
+				</div>
+				<div class="modal-footer"> 
+					<a href="#" id="confirm-button" class="btn btn-success confirm-button">Confirm</a>
+					<a href="#" data-dismiss="modal" aria-hidden="true" class="btn btn-default secondary">No</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Main -->
+	<div id="main">
+
+		<!-- Intro -->
+		<section id="top" class="one dark cover">
+			<div class="container">
+				<header>
+					<h2 class="alt">Profile</h2>	
+				</header>
+				<!-- <footer>
+					<a href="#portfolio" class="button scrolly">Magna Aliquam</a>
+				</footer> -->
+			</div>
+
+		</section>
+
+		<section id="timetable" class="two hide">
+			<div class="container" id="timetable-button">
+				<header><a href="" target="_blank" class="button">
+					<h2 style="font-weight:bold;color:#FFEEC8;">Current NUSMods Timetable</h2>
+				</a></header>
+			</div>
+		</section>
+
+
+		<!-- Portfolio -->
+		<% var count_copy = sem_count; %>
+		<% var css_class = "two"; %>
+		<% for (sem in value) { %>
+		<% (count_copy%2 === 0) ? css_class = "two" : css_class = "three" ; %>
+		<section id="<%=count_copy%>" class="<%=css_class%>">
+			<div class="container">
+				<header>
+					<h2><%= sem %></h2>
+				</header>
+				<div class="row">
+					<% var first_item = true; %>
+					<% for (var i=0; i<value[sem].length; i++){ %>
+					<% if (first_item) {%>
+						<div class="4u">
+							<article id= "<%=value[sem][i].code%>" class="module item">
+								<div><h2><a href="/module/<%-value[sem][i].code%>">
+									<%=value[sem][i].code%>
+								</a></h2></div>
+								<div class="icon-row">
+									<i class="fa fa-comment" detail-type="review" data-toggle="tooltip" title="Diary"></i>
+									<i class="fa fa-book" detail-type="textbook" data-toggle="tooltip" title="Textbook"></i>
+									<i class="fa fa-link" detail-type="notes" data-toggle="tooltip" title="Notes URL"></i>
+								</div>							
+							</article>
+					<%} else{ %>
+							<article id= "<%=value[sem][i].code%>" class="module item">
+								<div><h2><a href="/module/<%-value[sem][i].code%>">
+									<%=value[sem][i].code%>
+								</a></h2></div>
+								<div class="icon-row">
+									<i class="fa fa-comment" detail-type="review" data-toggle="tooltip" title="Diary"></i>
+									<i class="fa fa-book" detail-type="textbook" data-toggle="tooltip" title="Textbook"></i>
+									<i class="fa fa-link" detail-type="notes" data-toggle="tooltip" title="Notes URL"></i>
+								</div>
+							</article>
+						</div>
+					<% } %>
+					<% first_item = !first_item; %>
+					<% } %>
+				</div>
+				
+			</div>
+		</section>
+		<% count_copy--; %> 
+		<% } %>
+	</div>
+	<div id="footer">A CS3216 Project</div>
+<% include footer.ejs %>
+</html>

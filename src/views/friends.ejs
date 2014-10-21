@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<% include header.ejs %>
+	<script>
+	var moduleData;
+	function getFriendProfilePic(position, fb_id) {
+		FB.api('/' + fb_id + '/picture?redirect=0&height=48&type=normal&width=48', function(response) {
+			document.getElementById('avatarpic' + position + fb_id).src = response.data.url;
+		});
+	}
+	function searchForModule(query) {
+		var keyword = document.getElementById('keyword').value;
+		console.log(keyword);
+		return false;
+	}
+	function queryAPI() {
+		FB.api('/me', function(response) {
+			$('#myhistory-link').attr('href','/profile/' + response.id);
+			document.getElementById('facebook-info').href = "https://www.facebook.com/" + response.id;
+			document.getElementById('facebook-info').target = "_blank";
+			document.getElementById('title').innerHTML = response.name;
+		});
+		FB.api('/me/picture?redirect=0&height=48&type=normal&width=48', function(response) {
+			document.getElementById('avatarpic').src = response.data.url;
+		});
+		FB.api('/me/friends', function (response) {
+			if (response && !response.error) {
+				//Get a list of friends
+				$(document).ready(function() {
+					var dict = {};
+					var sorted = [];
+					for (var i=0; i<response.data.length; i++) {
+						dict[response.data[i].name.charAt(0).toUpperCase()] = true;
+					}
+					for(var key in dict) {
+						sorted[sorted.length] = key;
+					}
+					sorted.sort();
+					for (var i=0; i<sorted.length; i++) {
+						$('#friend-table-tab').append(
+							'<li class=""><a href="#friends-table-tab-' + sorted[i] + '" data-toggle="tab">' + sorted[i] + '</a></li>'
+						);
+						$('#friend-content').append(
+							'<div class="tab-pane fade" id="friends-table-tab-' + sorted[i] + '">' + 
+								'<table class="table" id="friends-table-' + sorted[i] + '">' +
+								'</table>' +
+							'</div>'
+						);
+					}
+					response.data.sort(function(a, b) { 
+						if (a.name < b.name) return -1; 
+						if (a.name > b.name) return 1; 
+						return 0;
+					});
+					for (var i=0; i<response.data.length; i++) {
+						var initial = response.data[i].name.charAt(0).toUpperCase();
+						$('#friends-table-All').append(
+							'<div class="col-xs-4 friend-entry">' +
+							'<span class="image avatar48 friend-taken-mod"><img id="avatarpicAll' + response.data[i].id + 
+							'" src="/images/avatar.jpg" alt="" /></span>' + 
+							'<a class="friend-link" href=/profile/' +  
+							response.data[i].id + ' >' +
+							response.data[i].name + '</a></div>');
+						$('#friends-table-' + initial).append(
+							'<div class="col-xs-4 friend-entry">' +
+							'<span class="image avatar48 friend-taken-mod"><img id="avatarpic' + initial + response.data[i].id + 
+							'" src="/images/avatar.jpg" alt="" /></span>' + 
+							'<a class="friend-link" href=/profile/' +  
+							response.data[i].id + ' >' +
+							response.data[i].name + '</a></div>');
+						getFriendProfilePic('All', response.data[i].id);
+						getFriendProfilePic(initial, response.data[i].id);
+					}
+				});
+			}
+		});
+	};
+	$(document).ready(function(){
+		$.get('http://api.nusmods.com/2014-2015/moduleList.json', function (result) {
+			moduleData = result;
+		});		
+	})
+	$(document).ready(function(){
+		$("#keyword").keyup(function(){
+			var keyword = $(this).val();
+			var result = moduleData.filter(function(key){
+				var id = '' + key.ModuleCode;
+				var name = '' + key.ModuleTitle;
+				return (id.indexOf(keyword) != -1) || (name.indexOf(keyword) != -1);
+			});
+			if (keyword != "") {
+				document.getElementById('search-result').style.visibility = "visible";
+			} else {
+				document.getElementById('search-result').style.visibility = "hidden";
+			}
+			var remaining = false;
+			if (result.length > 10) {
+				remaining = true;
+				result = result.slice(0, 10);
+			}
+			console.log(result.length);
+			$('#search-result').html('');
+			if (result.length != 0) {
+				for (var i = 0; i < result.length; ++i) {
+					var id = result[i].ModuleCode;
+					var name = result[i].ModuleTitle;
+					$('#search-result').append(
+						'<a href="/module/' + id + '" class="list-group-item">' + id + ' ' + name + '</a>'
+					);
+				}
+				if (remaining) {
+					$('#search-result').append('<span class="list-group-item">...</span>');	
+				}
+			} else {
+				$('#search-result').append('<span class="list-group-item">Sorry, no modules found.</span>');
+			}
+		});
+	});
+	</script>
+
+
+
+	<div id="header" class="skel-layers-fixed">
+		<div class="top">
+			<!-- Logo -->
+			<div id="logo">
+				<span class="image avatar48"><img id="avatarpic" src="/images/avatar.jpg" alt="" /></span>
+				<a id="facebook-info" href=""><h1 id="title"></h1></a>
+			</div>
+			<!-- Nav -->
+			<nav id="nav">
+
+				<ul>
+					<li><a href="" id="fb-link"><span class="icon fa-facebook-square">Promote FVLE 
+						<div class="fb-like" data-href="http://fvle.jishnumohan.com" data-layout="button" data-action="like" data-show-faces="false" data-share="true" data-colorscheme="dark"></div>
+					</span></a></li>
+
+					<li><a href="#top" id="top-link" class="skel-layers-ignoreHref">
+						<span class="icon fa-home">Home</span>
+					</a></li>
+
+					<li><a href="#friends" id="friends-link" class="skel-layers-activeWrapper">
+						<span class="icon fa-users">Friends</span>
+					</a></li>
+					<li><a href="#modules" id="modules-link">
+						<span class="icon fa-th">Modules</span>
+					</a></li>
+
+
+					<li><a href="" id="myhistory-link"><span class="icon fa-user">Profile</span></a></li>
+					<li><a href="" id="logout-link"><span class="icon fa-sign-out">Logout</span></a></li>
+				</ul>
+			</nav>
+
+		</div>
+
+		<div class="bottom">
+			
+		</div>
+
+	</div>
+
+	<!-- Main -->
+	<div id="main">
+
+		<!-- Intro -->
+		<section id="top" class="one dark cover">
+			<div class="container">
+				<header>
+					<h2 class="alt">Home</h2>
+				</header>
+			</div>
+		</section>
+		<section id="friends" class="four">
+			<div class="container">
+				<header>
+					<h3 class="alt">Friends on FVLE</h3>
+				</header>
+			</div>
+			<div class="container">
+				<ul class="nav nav-tabs" id="friend-table-tab">
+					<li class="active"><a href="#friends-table-tab-All" data-toggle="tab">All</a></li>
+				</ul>
+				<br>
+				<div id="friend-content" class="tab-content">
+					<div class="tab-pane fade active in" id="friends-table-tab-All">
+						<div class="friend-table" id="friends-table-All">
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section id="modules" class="two">
+			<header>
+				<h3 class="alt">Search for Module</h3>
+			</header>
+			<div class="container">
+				<form class="form-horizontal">
+					<fieldset>
+						<div class="form-group">
+							<div class="col-lg-12">
+								<input type="text" class="form-control" id="keyword" placeholder="Search for Module">
+							</div>
+						</div>
+					</fieldset>
+					<br>
+					<div id="search-result" class="list-group" style="visibility:hidden;">
+						<a href="#" class="list-group-item"></a>
+					</div>				
+				</form>
+			</div>
+		</section>
+	</div>
+	<div id="footer">A CS3216 Project</div>
+<% include footer.ejs %>
+</html>

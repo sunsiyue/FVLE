@@ -1,0 +1,207 @@
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Lato Regular'), local('Lato-Regular'), url(http://themes.googleusercontent.com/static/fonts/lato/v7/qIIYRU-oROkIk8vfvxw6QvesZW2xOQ-xsNqO47m55DA.woff) format('woff');
+}
+
+html { 
+  background: url('/images/ut_blur.jpg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-color: #FFFFCC;
+}
+
+body {
+	background-color: #FFFFCC;
+}
+
+@font-face {
+    font-family: 'rodus';
+    src: url('/fonts/roduscut300-webfont.woff') format('woff');
+}
+
+p {
+	font-size: 15px;
+}
+
+
+.intro {
+    display: table;
+    width: 100%;
+    height: auto;
+    padding: 100px 0;
+    text-align: center;
+    color: #fff;
+    background: url(../images/ut_blur.jpg) no-repeat bottom center scroll;
+    background-color: #000;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+
+.wrap {
+	width:500px;
+	height: auto;
+	margin: auto;
+	margin-top: 8%;
+	margin-bottom: 3%;
+	/*background-color: #52CC29;*/
+	background: rgba(255, 255, 220, 0.8);
+	border-radius: 30px;
+	/*opacity: 0.9;*/
+}
+.wrap .heading {
+	border: none;
+	outline: none;
+	margin: auto;
+	padding: 6px 6px 6px 6px;
+	text-align: center;
+}
+.wrap .heading h1{
+	font-family: courier;
+  	font-weight:40;
+  	color: #242436;
+  	font-size: 100px;
+	height: 100px;
+	/*text-shadow: 2px 2px #C77529;*/
+	margin-left: 0px;
+}
+.wrap .heading h2{
+	font-family: 'rodus';
+	font-size: 30px;
+  	font-weight:40 ;
+  	
+  	color: #47476D;
+  /*	text-shadow: 2px 2px #FFFFFC;*/
+	height: 100px;
+}
+.wrap .heading h3{
+	font-family: 'rodus';
+	color: #330080;
+  	font-weight:30 ;
+  	font-size: 20px;
+	height: 100px;
+}
+.avatar {
+	width: 100%;
+	margin: auto;
+	width: 65px;
+	border-radius: 100px;
+	height: 65px;
+	background: #A6CF29;
+	position: relative;
+	bottom: 50px;
+	left: -20px;
+	margin-top: 30px
+}
+.avatar img {
+	width: 100px;
+	height: 100px;
+	border-radius: 30px;
+	margin: auto;
+	border:3px solid #fff;
+	display: block;
+}
+
+.bar {
+	width: 100%;
+	height: 1px;
+	background: #fff ;
+}
+.bar i {
+	width: 95%;
+	margin: auto;
+	height: 1px ;
+	display: block;
+	background: #d1d1d1;
+}
+
+.wrap a {
+	width: 70px;
+    height: 70px;
+    margin-top: 15px;
+    padding: 7px 16px;
+    border: 2px solid #fff;
+    border-radius: 35px;
+    font-size: 40px;
+    color: #fff;
+    background: 0 0;
+    -webkit-transition: background .3s ease-in-out;
+    -moz-transition: background .3s ease-in-out;
+    transition: background .3s ease-in-out;
+}
+
+.btn-circle {
+    width: 70px;
+    height: 70px;
+    margin-top: 15px;
+    padding: 7px 16px;
+    border: 2px solid #fff;
+    border-radius: 35px;
+    font-size: 40px;
+    color: #fff;
+    background: 0 0;
+    -webkit-transition: background .3s ease-in-out;
+    -moz-transition: background .3s ease-in-out;
+    transition: background .3s ease-in-out;
+}
+
+#round-btn {
+	width: 70px;
+    height: 70px;
+    margin-top: 15px;
+    padding: 7px 16px;
+    border: 2px solid #fff;
+    border-radius: 35px;
+    font-size: 40px;
+    color: #fff;
+    background: 0 0;
+    margin:auto;
+    -webkit-transition: background .3s ease-in-out;
+    -moz-transition: background .3s ease-in-out;
+    transition: background .3s ease-in-out;
+    text-decoration: none;
+}
+
+#round-btn:hover,
+#round-btn:focus {
+    outline: 0;
+    color: #fff;
+    background: rgba(255,255,255,.1);
+}
+
+.wrap button {
+	width: 50%;
+	border-radius: 7px;
+	background: #3b5998;
+	text-decoration: center;
+	border: none;
+	color: #FFFFFC;
+  	margin-top:5px;
+  	margin-bottom: 5px;
+  	margin-left: 25%;
+	padding-top: 14px;
+	padding-bottom: 14px;
+	margin:auto;
+	outline: none;
+	font-size: 13px;	
+	border-bottom: 3px solid #307d63;
+	cursor: pointer;
+}
+
+
+
+
+#ivlebutton {
+	border-bottom: 3px solid #E88400;
+	background: #E87500;
+}
+
+a:hover {
+	text-decoration: none;
+}
